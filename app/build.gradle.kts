@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.bundles.retrofit)
     implementation(libs.kotlinx.serialization)
     implementation(libs.dagger.hilt.android)
