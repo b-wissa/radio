@@ -1,6 +1,10 @@
 package com.challenge.radio.di
 
 import com.challenge.radio.BuildConfig
+import com.challenge.radio.station.api.StationApi
+import com.challenge.radio.station.repository.StationsRepository
+import com.challenge.radio.station.repository.StationsRepositoryImpl
+import com.challenge.radio.station.usecase.GetTopStationsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,4 +51,15 @@ object ApplicationModule {
                     "application/json; charset=UTF8".toMediaType(),
                 ),
             ).build()
+
+    @Provides
+    fun providesStationApi(retrofit: Retrofit): StationApi = retrofit.create(StationApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providesStationsRepository(stationApi: StationApi): StationsRepository = StationsRepositoryImpl(stationApi = stationApi)
+
+    @Provides
+    fun providesGetTopStationsUseCase(stationsRepository: StationsRepository) =
+        GetTopStationsUseCase(stationsRepository = stationsRepository)
 }
