@@ -20,6 +20,15 @@ class TopStationsViewModel
         val viewState: StateFlow<ViewState> = _viewState
 
         init {
+            loadStations()
+        }
+
+        fun onRetryClicked() {
+            _viewState.value = ViewState.Loading
+            loadStations()
+        }
+
+        private fun loadStations() {
             viewModelScope.launch {
                 _viewState.value =
                     getTopStationsUseCase().fold(
