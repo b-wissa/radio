@@ -62,6 +62,9 @@ dependencies {
     implementation(libs.bumptec.glide)
     kapt(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
+    testImplementation(libs.io.mockk)
+    testImplementation(libs.app.cash.turbine)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
