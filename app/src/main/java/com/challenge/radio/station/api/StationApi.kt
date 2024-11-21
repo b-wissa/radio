@@ -1,5 +1,6 @@
 package com.challenge.radio.station.api
 
+import com.challenge.radio.station.api.model.ApiStationDetail
 import com.challenge.radio.station.api.model.StationsBySystemNameResponse
 import kotlinx.serialization.Serializable
 import retrofit2.http.GET
@@ -11,6 +12,11 @@ interface StationApi {
         @Query("systemName") systemName: SystemName,
         @Query("count") count: Int,
     ): StationsBySystemNameResponse
+
+    @GET("stations/details")
+    suspend fun getStationDetailsByIds(
+        @Query("stationIds") ids: List<String>,
+    ): List<ApiStationDetail>
 
     @Serializable
     enum class SystemName {

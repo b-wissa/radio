@@ -1,9 +1,9 @@
-package com.challenge.radio.ui.station.list
+package com.challenge.radio.ui.station.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.radio.station.model.Station
-import com.challenge.radio.station.usecase.GetTopStationsUseCase
+import com.challenge.radio.station.usecase.GetStationDetailsByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,34 +11,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class TopStationsViewModel
+internal class StationDetailsViewModel
     @Inject
     constructor(
-        private val getTopStationsUseCase: GetTopStationsUseCase,
+        private val getStationDetailsByIdUseCase: GetStationDetailsByIdUseCase,
     ) : ViewModel() {
         private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
         val viewState: StateFlow<ViewState> = _viewState
 
-        init {
-            loadStations()
-        }
-
-        fun onRetryClicked() {
+        fun loadStationDetails(id: String) {
             _viewState.value = ViewState.Loading
-            loadStations()
-        }
-
-        private fun loadStations() {
             viewModelScope.launch {
-                _viewState.value =
-                    getTopStationsUseCase().fold(
-                        onSuccess = {
-                            ViewState.Loaded(stations = it)
-                        },
-                        onFailure = {
-                            ViewState.Error
-                        },
-                    )
+                getStationDetailsByIdUseCase(stationId = id).fold(
+                    onSuccess = { station -> ViewState.Loaded(station) },
+                    onFailure = { ViewState.Error },
+                )
             }
         }
 
@@ -48,7 +35,7 @@ internal class TopStationsViewModel
             data object Error : ViewState
 
             data class Loaded(
-                val stations: List<Station>,
-            ) : ViewState
+                val station: Station,
+            )
         }
     }

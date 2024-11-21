@@ -3,5 +3,6 @@
     <string name="top_radio_stations">Top Radio Stations</string>
     <string name="retry">Retry</string>
     <string name="failed_to_load_stations">Failed to load Stations</string>
-    <string name="genre_list_item_title">Genre:</string>
+    <string name="genre_title">Genre:</string>
+    <string name="topics_title">Topics:</string>
 </resources>

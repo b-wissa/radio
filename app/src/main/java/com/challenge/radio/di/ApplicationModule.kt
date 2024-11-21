@@ -4,6 +4,7 @@ import com.challenge.radio.BuildConfig
 import com.challenge.radio.station.api.StationApi
 import com.challenge.radio.station.repository.StationsRepository
 import com.challenge.radio.station.repository.StationsRepositoryImpl
+import com.challenge.radio.station.usecase.GetStationDetailsByIdUseCase
 import com.challenge.radio.station.usecase.GetTopStationsUseCase
 import dagger.Module
 import dagger.Provides
@@ -62,4 +63,8 @@ object ApplicationModule {
     @Provides
     fun providesGetTopStationsUseCase(stationsRepository: StationsRepository) =
         GetTopStationsUseCase(stationsRepository = stationsRepository)
+
+    @Provides
+    fun providesGetStationDetailsByIdUseCase(stationsRepository: StationsRepository) =
+        GetStationDetailsByIdUseCase(stationsRepository = stationsRepository)
 }

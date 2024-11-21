@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/genre_list_item_title"
+            android:text="@string/genre_title"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toStartOf="@id/city"
             app:layout_constraintTop_toBottomOf="@id/city" />

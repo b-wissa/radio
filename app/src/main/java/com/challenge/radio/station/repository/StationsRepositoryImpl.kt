@@ -17,4 +17,12 @@ class StationsRepositoryImpl(
                 it.toStation()
             }
         }
+
+    override suspend fun getStationsDetailsById(ids: List<String>): Result<List<Station>> {
+        kotlin.runCatching {
+            stationApi.getStationDetailsByIds(ids = ids).map { apiStationDetail ->
+                apiStationDetail.toStation()
+            }
+        }
+    }
 }
