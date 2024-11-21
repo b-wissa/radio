@@ -22,10 +22,11 @@ internal class StationDetailsViewModel
         fun loadStationDetails(id: String) {
             _viewState.value = ViewState.Loading
             viewModelScope.launch {
-                getStationDetailsByIdUseCase(stationId = id).fold(
-                    onSuccess = { station -> ViewState.Loaded(station) },
-                    onFailure = { ViewState.Error },
-                )
+                _viewState.value =
+                    getStationDetailsByIdUseCase(stationId = id).fold(
+                        onSuccess = { station -> ViewState.Loaded(station) },
+                        onFailure = { ViewState.Error },
+                    )
             }
         }
 
@@ -36,6 +37,6 @@ internal class StationDetailsViewModel
 
             data class Loaded(
                 val station: Station,
-            )
+            ) : ViewState
         }
     }

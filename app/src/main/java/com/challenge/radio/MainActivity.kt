@@ -1,12 +1,12 @@
 package com.challenge.radio
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
+import com.challenge.radio.ui.station.detail.StationDetailsFragment
 import com.challenge.radio.ui.station.list.TopStationsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -43,6 +43,11 @@ class MainActivity :
     }
 
     override fun onStationClicked(id: String) {
-        Log.d("MainActivity", "Station with id $id tapped")
+        val fragment = StationDetailsFragment.newInstance(stationId = id)
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            addToBackStack(null)
+            add(R.id.container, fragment, StationDetailsFragment.TAG)
+        }
     }
 }

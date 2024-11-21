@@ -3,96 +3,154 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:id="@+id/details_constraint_layout"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/title"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:clickable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/details_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16.dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="MSNBC" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/top_station_detail_logo_height"
+            android:layout_height="@dimen/top_station_detail_logo_width"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintTop_toTopOf="@id/logo"
+            tools:text="New York, USA" />
+
+        <TextView
+            android:id="@+id/genre_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genre_title"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="@id/genre"
+            app:layout_constraintStart_toStartOf="@id/location"
+            app:layout_constraintTop_toTopOf="@id/genre" />
+
+        <TextView
+            android:id="@+id/genre"
+            style="?attr/textAppearanceBody1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/genre_title"
+            app:layout_constraintTop_toBottomOf="@id/location"
+            tools:text="News, Comedy, Politics, Sports, Entertainment" />
+
+        <TextView
+            android:id="@+id/topics_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/topics_title"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="@id/topics"
+            app:layout_constraintStart_toStartOf="@id/location"
+            app:layout_constraintTop_toTopOf="@id/topics" />
+
+        <TextView
+            android:id="@+id/topics"
+            style="?attr/textAppearanceBody1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/topics_title"
+            app:layout_constraintTop_toBottomOf="@id/genre"
+            tools:text="Some topic, some other topic" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/top_info_barrier"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="logo,topics" />
+
+        <ScrollView
+            android:id="@+id/description_scroll_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_info_barrier">
+
+            <TextView
+                style="?attr/textAppearanceBody1"
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                tools:text="Description text" />
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/errorConstraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline3"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="MSNBC" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="@dimen/top_station_detail_logo_height"
-        android:layout_height="@dimen/top_station_detail_logo_width"
-        android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/failed_to_load_station"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceBody1"
-        app:layout_constraintStart_toEndOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@id/logo"
-        tools:text="New York, USA" />
+        <Button
+            android:id="@+id/retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/retry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_message" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/genre_title"
+    <ProgressBar
+        android:id="@+id/loading_progress_indicator"
+        style="?attr/indeterminateProgressStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/genre_title"
-        android:textAppearance="?attr/textAppearanceBody2"
-        app:layout_constraintBottom_toBottomOf="@id/genre"
-        app:layout_constraintStart_toEndOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@id/genre" />
-
-    <TextView
-        android:id="@+id/genre"
-        style="?attr/textAppearanceBody1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/genre_title"
-        app:layout_constraintTop_toBottomOf="@id/location"
-        tools:text="News, Comedy, Politics, Sports, Entertainment" />
-
-    <TextView
-        android:id="@+id/topics_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/topics_title"
-        android:textAppearance="?attr/textAppearanceBody2"
-        app:layout_constraintBottom_toBottomOf="@id/topics"
-        app:layout_constraintStart_toEndOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@id/topics" />
-
-    <TextView
-        android:id="@+id/topics"
-        style="?attr/textAppearanceBody1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/topics_title"
-        app:layout_constraintTop_toBottomOf="@id/genre"
-        tools:text="Some topic, some other topic" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/top_info_barrier"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="logo,topics" />
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_info_barrier" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
