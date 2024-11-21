@@ -1,5 +1,6 @@
 package com.challenge.radio.ui.station.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,11 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class TopStationsFragment : Fragment() {
     private val viewModel: TopStationsViewModel by viewModels()
-    private val stationsAdapter = TopStationsRecyclerViewAdapter()
+    private var interactionListener: InteractionsListener? = null
+    private val stationsAdapter =
+        TopStationsRecyclerViewAdapter { station ->
+            interactionListener?.onStationClicked(id = station.id)
+        }
     private lateinit var binding: FragmentTopStationsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +73,19 @@ class TopStationsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context !is InteractionsListener) {
+            error("Host $context must implement ${InteractionsListener::class.simpleName}")
+        } else {
+            interactionListener = context
+        }
+    }
+
+    interface InteractionsListener {
+        fun onStationClicked(id: String)
     }
 
     companion object {

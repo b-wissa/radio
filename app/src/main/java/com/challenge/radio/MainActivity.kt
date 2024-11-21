@@ -1,6 +1,7 @@
 package com.challenge.radio
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,7 +13,9 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity :
+    AppCompatActivity(),
+    TopStationsFragment.InteractionsListener {
     @Inject
     internal lateinit var retrofit: Retrofit
 
@@ -37,5 +40,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             add(R.id.container, fragment, TopStationsFragment.TAG)
         }
+    }
+
+    override fun onStationClicked(id: String) {
+        Log.d("MainActivity", "Station with id $id tapped")
     }
 }

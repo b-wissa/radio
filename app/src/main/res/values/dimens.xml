@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="top_station_item_logo_width">125dp</dimen>
+    <dimen name="top_station_item_logo_height">125dp</dimen>
+    <dimen name="default_list_item_vertical_margin">8dp</dimen>
+    <dimen name="default_list_item_padding">4dp</dimen>
 </resources>

@@ -1,15 +1,22 @@
 package com.challenge.radio.ui.station.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.challenge.radio.R
 import com.challenge.radio.databinding.TopStationListItemBinding
 import com.challenge.radio.station.model.Station
 
-class TopStationsRecyclerViewAdapter : RecyclerView.Adapter<TopStationsRecyclerViewAdapter.ViewHolder>() {
+class TopStationsRecyclerViewAdapter(
+    private val onStationClicked: (station: Station) -> Unit,
+) : RecyclerView.Adapter<TopStationsRecyclerViewAdapter.ViewHolder>() {
     private val diffUtil =
         object : DiffUtil.ItemCallback<Station>() {
             override fun areItemsTheSame(
@@ -44,6 +51,22 @@ class TopStationsRecyclerViewAdapter : RecyclerView.Adapter<TopStationsRecyclerV
         val item = asyncListDiffer.currentList[position]
         holder.cityTextView.text = item.city
         holder.nameTextView.text = item.name
+        if (item.genres.isNotEmpty()) {
+            holder.genreTextView.visibility = View.VISIBLE
+            holder.genreTitleTextView.visibility = View.VISIBLE
+            holder.genreTextView.text = item.genres.joinToString(separator = ",", prefix = " ")
+        } else {
+            holder.genreTextView.visibility = View.GONE
+            holder.genreTitleTextView.visibility = View.GONE
+        }
+        Glide
+            .with(holder.logoImageView.context)
+            .load(item.logo)
+            .placeholder(R.drawable.ic_radio_solid)
+            .into(holder.logoImageView)
+        holder.containerCaredView.setOnClickListener {
+            onStationClicked(item)
+        }
     }
 
     fun setItems(items: List<Station>) {
@@ -55,7 +78,11 @@ class TopStationsRecyclerViewAdapter : RecyclerView.Adapter<TopStationsRecyclerV
     inner class ViewHolder(
         binding: TopStationListItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        val nameTextView: TextView = binding.stationName
-        val cityTextView: TextView = binding.stationCity
+        val logoImageView: ImageView = binding.logo
+        val nameTextView: TextView = binding.name
+        val cityTextView: TextView = binding.city
+        val genreTextView: TextView = binding.genre
+        val genreTitleTextView: TextView = binding.genreTitle
+        val containerCaredView: CardView = binding.stationItemContainer
     }
 }
