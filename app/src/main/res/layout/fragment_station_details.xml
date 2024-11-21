@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:id="@+id/details_constraint_layout"
+    android:layout_height="match_parent">
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
@@ -77,8 +80,19 @@
         tools:text="Some topic, some other topic" />
 
     <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/top_info_barrier"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/top_info_barrier"
-        app:barrierDirection="bottom" />
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="logo,topics" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_info_barrier" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
